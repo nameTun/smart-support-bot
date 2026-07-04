@@ -12,7 +12,11 @@ def main():
 
     if scraped_data:
         # Step 3: Filter data using Delta Sync
-        process_delta(scraped_data)
+        delta_result = process_delta(scraped_data)
+
+        # Step 4: Sync to OpenAI Vector Store
+        from openai_service import sync_to_openai
+        sync_to_openai(delta_result)
     else:
         print("No data fetched. Pipeline stopped.")
 

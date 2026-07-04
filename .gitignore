@@ -18,3 +18,6 @@ __pycache__/
 # Project specific
 articles/
 sync_state.json
+
+# macOS
+.DS_Store

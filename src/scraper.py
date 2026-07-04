@@ -36,6 +36,9 @@ def fetch_articles():
         articles = data.get("articles", [])
 
         for article in articles:
+            if total_fetched >= 90:
+                break
+                
             article_id = str(article.get("id"))
             title = article.get("title", "Untitled")
             body_html = article.get("body") or ""
@@ -62,6 +65,10 @@ def fetch_articles():
         # Pagination
         url = data.get("next_page")
         print(f"Fetched {len(articles)} articles from this page. Total so far: {total_fetched}")
+        
+        if total_fetched >= 30:
+            print("Reached limit of 90 articles. Stopping scraper.")
+            break
 
     print(f"Finished scraping! Total articles saved to '{articles_dir}': {total_fetched}")
     return scraped_data
