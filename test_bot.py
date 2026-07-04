@@ -48,8 +48,8 @@ def main():
         print("\n========================================\n")
         
     except Exception as e:
-        print("\n[LỖI TỪ OPENAI]")
-        print(f"Lý do: {str(e)}")
+        print("\n[Error OPENAI]")
+        print(f"Reason: {str(e)}")
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from scraper import fetch_articles
+# pyrefly: ignore [missing-import]
 from delta_sync import process_delta
 
 def main():
@@ -15,6 +16,7 @@ def main():
         delta_result = process_delta(scraped_data)
 
         # Step 4: Sync to OpenAI Vector Store
+        # pyrefly: ignore [missing-import]
         from openai_service import sync_to_openai
         sync_to_openai(delta_result)
     else:
