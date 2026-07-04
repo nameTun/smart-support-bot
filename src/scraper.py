@@ -20,6 +20,7 @@ def fetch_articles():
 
     url = ZENDESK_API_URL
     total_fetched = 0
+    scraped_data = []
 
     print(f"Starting to fetch articles from {ZENDESK_API_URL}...")
 
@@ -35,9 +36,10 @@ def fetch_articles():
         articles = data.get("articles", [])
 
         for article in articles:
-            article_id = article.get("id")
+            article_id = str(article.get("id"))
             title = article.get("title", "Untitled")
             body_html = article.get("body") or ""
+            updated_at = article.get("updated_at")
 
             # Convert HTML to Markdown
             # Default markdownify keeps links, headings, and code blocks.
@@ -51,6 +53,10 @@ def fetch_articles():
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(final_content)
 
+            scraped_data.append({
+                "id": article_id,
+                "updated_at": updated_at
+            })
             total_fetched += 1
 
         # Pagination
@@ -58,6 +64,7 @@ def fetch_articles():
         print(f"Fetched {len(articles)} articles from this page. Total so far: {total_fetched}")
 
     print(f"Finished scraping! Total articles saved to '{articles_dir}': {total_fetched}")
+    return scraped_data
 
 if __name__ == "__main__":
     fetch_articles()
