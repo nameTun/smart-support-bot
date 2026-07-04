@@ -1,5 +1,10 @@
 import os
+import sys
 from dotenv import load_dotenv
+
+# Ensure src modules are importable when running from project root
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+
 from scraper import fetch_articles
 from delta_sync import process_delta
 
